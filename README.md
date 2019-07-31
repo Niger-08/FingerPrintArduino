@@ -31,3 +31,42 @@ void setup()
     }
   }
 }
+
+void loop()                     
+{
+  Serial.println("Ready to enroll a fingerprint!");
+  Serial.println("Please type in the ID # (from 1 to 127)");
+  id = readnumber();
+Serial.print(“ID ");
+  Serial.println(id);
+  
+  while (!  getFingerprintEnroll() 
+);
+
+}
+
+uint8_t getFingerprintEnroll() {
+
+  int p = 1;
+  Serial.print("Waiting for valid finger print"); 
+Serial.println(id);
+  while (p != FINGERPRINT_OK) {
+    p = finger.getImage();
+    switch (p) {
+    case FINGERPRINT_OK:
+      Serial.println("Image inserted");
+      break;
+    case FINGERPRINT_NOFINGER:
+      Serial.println(" ");
+      break;
+    case FINGERPRINT_PACKETRECIEVEERR:
+      Serial.println("Communication error");
+      break;
+    case FINGERPRINT_IMAGEFAIL:
+      Serial.println("imaging error");
+      break;
+    default:
+      Serial.println("unknown error");
+      break;
+    }
+  }
