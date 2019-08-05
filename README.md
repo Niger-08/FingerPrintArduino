@@ -30,7 +30,22 @@ void setup()
     delay(1); 
     }
   }
+  
+  uint16_t readnumber(void) {
+  uint16_t num = 0;
+  
+  while (nm == 0) {
+    while (! Serial.available());
+    num = Serial.parseInt();
+  }
+  return nm;
+  
 }
+
+
+}
+
+
 
 void loop()                     
 {
